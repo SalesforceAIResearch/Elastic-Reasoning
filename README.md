@@ -15,7 +15,7 @@
 </div>
 </div>
 
-## Usage
+## Setup
 
 
 ### Installation

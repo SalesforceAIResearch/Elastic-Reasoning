@@ -301,10 +301,6 @@ class vLLMRollout(BaseRollout):
             log_probs = output[1].to(idx.device)
         else:
             with self.update_sampling_params(**kwargs):
-                # print("-"*100)
-                print(self.config.e1_thinking_length)
-                print(self.config.e1_solution_length)
-                # print("-"*100)
                 self.sampling_params.max_tokens = self.config.e1_thinking_length
                 self.sampling_params.stop_token_ids=[151649]
                 outputs = self.inference_engine.generate(
