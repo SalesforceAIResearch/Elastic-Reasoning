@@ -15,7 +15,16 @@
 </div>
 </div>
 
-## Setup
+
+## Table of Contents
+- [Introduction](#introduction)
+- [Environment Setup](#environment-setup)
+- [Training](#training)
+- [Evaluation](#evaluation)
+
+## Introduction
+
+## Environment Setup
 
 
 ### Installation
