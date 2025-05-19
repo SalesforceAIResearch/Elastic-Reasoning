@@ -23,6 +23,34 @@
 - [Evaluation](#evaluation)
 
 ## Introduction
+We propose **Elastic Reasoning**, a novel framework for scalable chain of thoughts
+that explicitly separates reasoning into two phases—`thinking and solution`—with
+independently allocated budgets. At test time, Elastic Reasoning prioritize that
+completeness of solution segments, significantly improving reliability under tight
+resource constraints. To train models that are robust to truncated thinking, we
+introduce a lightweight `budget-constrained rollout` strategy, integrated into GRPO,
+which teaches the model to reason adaptively when the thinking process is cut
+short and generalizes effectively to unseen budget constraints without additional
+training. 
+<p align="center">
+  <img src="figs/framework.png" width="80%" />
+</p>
+
+
+**Main Takeaways**
+1. ✂️ Thinking + Solution are explicitly separated with independent budgets — boosting reliability under tight compute constraints.
+2. 🧠 Budget-Constrained Rollout: We train models to handle truncated reasoning using GRPO.
+3. 📈 Flexible scalability: Robust performance across diverse inference budgets on reasoning benchmarks like AIME and LiveCodeBench.
+4. ⚙️ Better performance with fewer tokens: Our trained model generates outputs that are 30% shorter while maintaining (or even improving) accuracy.
+
+<p align="center">
+  <img src="figs/aime.png" width="46%" />
+    <img src="figs/livecode.png" width="48%" />
+</p>
+
+<p align="center">
+  <img src="figs/codetable.png" width="90%" />
+</p>
 
 ## Environment Setup
 
@@ -54,7 +82,7 @@ export MODEL_PATH="agentica-org/DeepScaleR-1.5B-Preview"
 ./scripts/e1-math/e1_math_1.5b_1k_1k.sh --model $MODEL_PATH
 ```
 
-## Evaluation ⚖️
+## Evaluation
 
 To run our evaluation scripts, run:
 ```bash
