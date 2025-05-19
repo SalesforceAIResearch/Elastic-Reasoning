@@ -10,6 +10,9 @@ OUTPUT_DIR="$HOME"  # Add default output directory
 N_PASSES=1  # Add default number of passes
 MAX_LENGTH=32768  # Default max response length
 TP_SIZE=1  # Default tensor parallel size
+E1_MODE=True
+E1_THINKING_LENGTH=1024
+E1_SOLUTION_LENGTH=1024
 
 # Parse named arguments
 while [[ $# -gt 0 ]]; do
@@ -43,6 +46,18 @@ while [[ $# -gt 0 ]]; do
             TP_SIZE="$2"
             shift 2
             ;;
+        --e1-mode)
+            E1_MODE="$2"
+            shift 2
+            ;;
+        --e1-thinking-length)
+            E1_THINKING_LENGTH="$2"
+            shift 2
+            ;;
+        --e1-solution-length)
+            E1_SOLUTION_LENGTH="$2"
+            shift 2
+            ;;
         *)
             echo "Unknown argument: $1"
             echo "Usage: $0 --model <model_path> --datasets dataset1 dataset2 ... --output-dir <output_directory> --n <number_of_passes> --max-length <max_response_length> --tp <tensor_parallel_size>"
@@ -58,13 +73,16 @@ echo "Output Directory: ${OUTPUT_DIR}"
 echo "Number of Passes: ${N_PASSES}"
 echo "Max Response Length: ${MAX_LENGTH}"
 echo "Tensor Parallel Size: ${TP_SIZE}"
+echo "E1 Mode: ${E1_MODE}"
+echo "E1 Thinking Length: ${E1_THINKING_LENGTH}"
+echo "E1 Solution Length: ${E1_SOLUTION_LENGTH}"
 
 # Loop through all datatypes
 for DATA_TYPE in "${DATATYPES[@]}"; do
     python3 -m verl.trainer.main_generation \
         trainer.nnodes=1 \
         trainer.n_gpus_per_node=8 \
-        data.path=$HOME/rllm/data/${DATA_TYPE}.parquet \
+        data.path=$HOME/Elastic-Reasoning/data/${DATA_TYPE}.parquet \
         data.output_path=${OUTPUT_DIR}/${DATA_TYPE}.parquet \
         data.n_samples=${N_PASSES} \
         data.batch_size=2048 \
@@ -74,5 +92,8 @@ for DATA_TYPE in "${DATATYPES[@]}"; do
         rollout.top_k=-1 \
         rollout.top_p=0.95 \
         rollout.gpu_memory_utilization=0.8 \
-        rollout.tensor_model_parallel_size=${TP_SIZE}
+        rollout.tensor_model_parallel_size=${TP_SIZE} \
+        rollout.e1_mode=${E1_MODE} \
+        rollout.e1_thinking_length=${E1_THINKING_LENGTH} \
+        rollout.e1_solution_length=${E1_SOLUTION_LENGTH}
 done

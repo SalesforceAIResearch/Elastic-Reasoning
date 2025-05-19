@@ -286,73 +286,53 @@ class vLLMRollout(BaseRollout):
         kwargs['n'] = 1
         if do_sample:
             idx_list = [deepcopy(item) for item in idx_list for _ in range(self.config.n)]
-        # with self.update_sampling_params(**kwargs):
-        #     output = self.inference_engine.generate(
-        #         prompts=None,
-        #         sampling_params=self.sampling_params,
-        #         prompt_token_ids=idx_list,
-        #         use_tqdm=False)
-        #     output = _post_process_outputs(output, self.tokenizer)
+    
+        if not self.config.e1_mode:
+            with self.update_sampling_params(**kwargs):
+                output = self.inference_engine.generate(
+                    prompts=None,
+                    sampling_params=self.sampling_params,
+                    prompt_token_ids=idx_list,
+                    use_tqdm=False)
+                output = _post_process_outputs(output, self.tokenizer)
 
-        # # Process outputs
-        # response = output[0].to(idx.device)
-        # log_probs = output[1].to(idx.device)
-        # Generate sequences
-        # if is_validation:
-        #     print("-"*100)
-        #     print("Validation mode")
-        #     print(self.sampling_params)
-        #     print("-"*100)
-        #     with self.update_sampling_params(**kwargs):
-        #         self.sampling_params.max_tokens = 16384
-        #         self.sampling_params.stop_token_ids=[151643]
-        #         output = self.inference_engine.generate(
-        #             prompts=None,
-        #             sampling_params=self.sampling_params,
-        #             prompt_token_ids=idx_list,
-        #             use_tqdm=False)
-        #         output = _post_process_outputs(output, self.tokenizer)
+            # Process outputs
+            response = output[0].to(idx.device)
+            log_probs = output[1].to(idx.device)
+        else:
+            with self.update_sampling_params(**kwargs):
+                # print("-"*100)
+                print(self.config.e1_thinking_length)
+                print(self.config.e1_solution_length)
+                # print("-"*100)
+                self.sampling_params.max_tokens = self.config.e1_thinking_length
+                self.sampling_params.stop_token_ids=[151649]
+                outputs = self.inference_engine.generate(
+                    prompts=None,
+                    sampling_params=self.sampling_params,
+                    prompt_token_ids=idx_list,
+                    use_tqdm=False)
+                second_input_token_ids, response_token_ids, response_logprobs = get_response_token_ids(idx_list, outputs)
 
-        #     # Process outputs
-        #     response = output[0].to(idx.device)
-        #     log_probs = output[1].to(idx.device)
-        # else:
-            # print("-"*100)
-            # print("Training mode")
-            # print("-"*100)
-        with self.update_sampling_params(**kwargs):
-            # print("-"*100)
-            print(self.config.e1_thinking_length)
-            print(self.config.e1_solution_length)
-            # print("-"*100)
-            self.sampling_params.max_tokens = self.config.e1_thinking_length
-            self.sampling_params.stop_token_ids=[151649]
-            outputs = self.inference_engine.generate(
-                prompts=None,
-                sampling_params=self.sampling_params,
-                prompt_token_ids=idx_list,
-                use_tqdm=False)
-            second_input_token_ids, response_token_ids, response_logprobs = get_response_token_ids(idx_list, outputs)
+                self.sampling_params.max_tokens = self.config.e1_solution_length
+                self.sampling_params.stop_token_ids=[151643]
+                second_outputs = self.inference_engine.generate(
+                    prompts=None,
+                    prompt_token_ids=second_input_token_ids,
+                    sampling_params=self.sampling_params,
+                    use_tqdm=False
+                )
+                second_response_token_ids, second_response_logprobs = get_second_response_token_ids(second_outputs)
+                final_response_token_ids = []
+                final_response_logprobs = []
+                for r1, r2, l1, l2 in zip(response_token_ids, second_response_token_ids, response_logprobs, second_response_logprobs):
+                    final_response_token_ids.append(list(r1) + list(r2))
+                    final_response_logprobs.append(list(l1) + list(l2))
+                output_token_ids, logprobs = post_process(final_response_token_ids, final_response_logprobs, self.tokenizer)
 
-            self.sampling_params.max_tokens = self.config.e1_solution_length
-            self.sampling_params.stop_token_ids=[151643]
-            second_outputs = self.inference_engine.generate(
-                prompts=None,
-                prompt_token_ids=second_input_token_ids,
-                sampling_params=self.sampling_params,
-                use_tqdm=False
-            )
-            second_response_token_ids, second_response_logprobs = get_second_response_token_ids(second_outputs)
-            final_response_token_ids = []
-            final_response_logprobs = []
-            for r1, r2, l1, l2 in zip(response_token_ids, second_response_token_ids, response_logprobs, second_response_logprobs):
-                final_response_token_ids.append(list(r1) + list(r2))
-                final_response_logprobs.append(list(l1) + list(l2))
-            output_token_ids, logprobs = post_process(final_response_token_ids, final_response_logprobs, self.tokenizer)
-
-        # Process outputs
-        response = output_token_ids.to(idx.device)
-        log_probs = logprobs.to(idx.device)
+            # Process outputs
+            response = output_token_ids.to(idx.device)
+            log_probs = logprobs.to(idx.device)
 
 
 

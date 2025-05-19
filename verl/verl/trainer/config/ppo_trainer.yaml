@@ -88,6 +88,7 @@ actor_rollout_ref:
     # number of responses (i.e. num sample times)
     n: 1 # > 1 for grpo
     n_val: 8
+    e1_mode: True
     e1_thinking_length: 1024
     e1_solution_length: 1024
 

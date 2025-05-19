@@ -69,7 +69,7 @@ def make_map_fn(split: str):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Process datasets for DeepScaler training')
-    parser.add_argument('--local_dir', default=os.path.expanduser('~/rllm/data'),
+    parser.add_argument('--local_dir', default=os.path.expanduser('~/Elastic-Reasoning/data'),
                        help='Local directory to save processed datasets')
     parser.add_argument('--hdfs_dir', default=None,
                        help='Optional HDFS directory to copy datasets to')

@@ -42,6 +42,7 @@ rollout:
   n: 1
   n_val: 1
   enable_chunked_prefill: True
+  e1_mode: True
   e1_thinking_length: 1024
   e1_solution_length: 1024
 
