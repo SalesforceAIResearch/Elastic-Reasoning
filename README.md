@@ -1,12 +1,12 @@
 <div align="center">
 
 # Elastic Reasoning
-
 <div>
 <div>
-🚀 Scalable Chain of Thoughts via Elastic Reasoning 🌟
+<h3>🚀 Scalable Chain of Thoughts via Elastic Reasoning 🌟
 </div>
 </div>
+<br>
 <div align="center">
 
 [![Paper](https://img.shields.io/badge/paper-A42C25?style=for-the-badge&logo=arxiv&logoColor=white)](https://arxiv.org/pdf/2505.05315)
