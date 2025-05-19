@@ -59,8 +59,8 @@ python3 -m verl.trainer.main_ppo \
     algorithm.kl_ctrl.kl_coef=0.001 \
     trainer.critic_warmup=0 \
     trainer.logger=['console','wandb'] \
-    trainer.project_name='deepscaler' \
-    trainer.experiment_name='deepscaler-1.5b-2-4k-3-1k-truncate' \
+    trainer.project_name='E1' \
+    trainer.experiment_name='E1-math-1.5b-t-1k-s-1k' \
     +trainer.val_before_train=True \
     trainer.n_gpus_per_node=8 \
     trainer.nnodes=1 \
