@@ -10,7 +10,8 @@
 <div align="center">
 
 [![Paper](https://img.shields.io/badge/paper-A42C25?style=for-the-badge&logo=arxiv&logoColor=white)](https://arxiv.org/pdf/2505.05315)
-[![Hugging Face Collection](https://img.shields.io/badge/Elastic_Reasoning-fcd022?style=for-the-badge&logo=huggingface&logoColor=000&labelColor)](https://huggingface.co/Salesforce/Elastic-Reasoning)
+[![Hugging Face Collection](https://img.shields.io/badge/E1-fcd022?style=for-the-badge&logo=huggingface&logoColor=000&labelColor)](https://huggingface.co/collections/Salesforce/elastic-reasoning-682b4bba108d6ea0a8bab275)
+[![Github](https://img.shields.io/badge/Elastic_Reasoning-000000?style=for-the-badge&logo=github&logoColor=000&logoColor=white)](https://github.com/SalesforceAIResearch/Elastic-Reasoning)
 
 </div>
 </div>
@@ -91,16 +92,16 @@ To run our evaluation scripts, run:
 
 ### Example on MATH
 ```bash
-./scripts/eval/eval_model.sh --model /fsx/home/yuhui/e1_checkpoints/checkpoints/deepscaler/deepscaler-1.5b-2k-1k-1k-truncate/actor/global_step_150 --datasets aime math amc minerva olympiad_bench --output-dir $HOME/DeepScaleR-1.5B-Preview --tp 1 --n 16 --e1-mode True --e1-thinking-length 1024 --e1-solution-length 1024
+./scripts/eval/eval_model.sh --model Salesforce/E1-Math-1.5B --datasets aime math amc minerva olympiad_bench --output-dir $HOME/E1-Math-1.5B --tp 1 --n 16 --e1-mode True --e1-thinking-length 1024 --e1-solution-length 1024
 ```
 ### Example on LiveCodeBench
 ```bash
-./scripts/eval/eval_model.sh --model agentica-org/DeepCoder-14B-Preview --datasets test_livecodebench --output-dir $HOME/DeepCoder-14B-Preview --tp 4 --e1-mode True --e1-thinking-length 1024 --e1-solution-length 1024
+./scripts/eval/eval_model.sh --model Salesforce/E1-Code-14B--datasets test_livecodebench --output-dir $HOME/E1-Code-14B --tp 4 --e1-mode True --e1-thinking-length 1024 --e1-solution-length 1024
 ```
 
 ### Example on Codeforces
 ```bash
-./scripts/eval/eval_model.sh --model agentica-org/DeepCoder-14B-Preview --datasets test_codeforces --output-dir $HOME/DeepCoder-14B-Preview --tp 4 --n 8 --e1-mode True --e1-thinking-length 1024 --e1-solution-length 1024
+./scripts/eval/eval_model.sh --model Salesforce/E1-Code-14B --datasets test_codeforces --output-dir $HOME/DeepCoder-14B-Preview --tp 4 --n 8 --e1-mode True --e1-thinking-length 1024 --e1-solution-length 1024
 ```
 ```bash
 python scripts/deepcoder/benchmark/cf_elo_calc.py --results_path [RESULTS_JSON_PATH] --pass_n 8
