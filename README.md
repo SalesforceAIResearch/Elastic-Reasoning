@@ -96,7 +96,7 @@ To run our evaluation scripts, run:
 ```
 ### Example on LiveCodeBench
 ```bash
-./scripts/eval/eval_model.sh --model Salesforce/E1-Code-14B--datasets test_livecodebench --output-dir $HOME/E1-Code-14B --tp 4 --e1-mode True --e1-thinking-length 1024 --e1-solution-length 1024
+./scripts/eval/eval_model.sh --model Salesforce/E1-Code-14B --datasets test_livecodebench --output-dir $HOME/E1-Code-14B --tp 4 --e1-mode True --e1-thinking-length 1024 --e1-solution-length 1024
 ```
 
 ### Example on Codeforces
@@ -106,6 +106,10 @@ To run our evaluation scripts, run:
 ```bash
 python scripts/deepcoder/benchmark/cf_elo_calc.py --results_path [RESULTS_JSON_PATH] --pass_n 8
 ```
+
+### Unconstrained evaluation
+set `--e1-mode False` and `--max-length [Maxmum token length, e.g. 32768]`
+
 
 ## Acknowledgement
 We greatly thanks [rllm](https://github.com/agentica-project/rllm) and [verl](https://github.com/volcengine/verl) for providing the awesome codebase!
