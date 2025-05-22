@@ -12,6 +12,7 @@
 [![Paper](https://img.shields.io/badge/paper-A42C25?style=for-the-badge&logo=arxiv&logoColor=white)](https://arxiv.org/pdf/2505.05315)
 [![Hugging Face Collection](https://img.shields.io/badge/E1-fcd022?style=for-the-badge&logo=huggingface&logoColor=000&labelColor)](https://huggingface.co/collections/Salesforce/elastic-reasoning-682b4bba108d6ea0a8bab275)
 [![Github](https://img.shields.io/badge/Elastic_Reasoning-000000?style=for-the-badge&logo=github&logoColor=000&logoColor=white)](https://github.com/SalesforceAIResearch/Elastic-Reasoning)
+[![Website](https://img.shields.io/badge/Blog-%23000000.svg?style=for-the-badge&logo=semanticweb&logoColor=white)](https://huggingface.co/spaces/Salesforce/Efficient-Reasoning) 
 
 </div>
 </div>
