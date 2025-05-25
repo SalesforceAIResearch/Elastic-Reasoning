@@ -17,6 +17,8 @@
 </div>
 </div>
 
+## Updates
+- We released E1-Math-7B finetuned from Skywork-OR1-Math-7B
 
 ## Table of Contents
 - [Introduction](#introduction)
@@ -49,6 +51,8 @@ training.
   <img src="figs/aime.png" width="46%" />
     <img src="figs/livecode.png" width="48%" />
 </p>
+
+**Results**
 
 | Model | Tokens | Acc (%) | Tokens | Acc (%) | Tokens | Acc (%) | Tokens | Acc (%) | Tokens | Acc (%) |
 |---------------|--------------|---------------|--------------|---------------|--------------|---------------|--------------|---------------|--------------|---------------|
