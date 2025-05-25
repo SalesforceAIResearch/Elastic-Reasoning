@@ -18,7 +18,7 @@
 </div>
 
 ## Updates
-- We released E1-Math-7B finetuned from Skywork-OR1-Math-7B
+- We released [E1-Math-7B](https://huggingface.co/Salesforce/E1-Math-7B) finetuned from Skywork-OR1-Math-7B
 
 ## Table of Contents
 - [Introduction](#introduction)
