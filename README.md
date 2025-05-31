@@ -18,6 +18,7 @@
 </div>
 
 ## Updates
+We released [E1-AceReason-14B](https://huggingface.co/Salesforce/E1-AceReason-14B) finetuned from AceReason-Nemotron-14B
 - We released [E1-Math-7B](https://huggingface.co/Salesforce/E1-Math-7B) finetuned from Skywork-OR1-Math-7B
 - We released [E1-Math-1.5B](https://huggingface.co/Salesforce/E1-Math-1.5B) and [E1-Code-14B](https://huggingface.co/Salesforce/E1-Code-14B)
 
